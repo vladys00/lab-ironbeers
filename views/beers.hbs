@@ -1,4 +1,7 @@
-<h1>beers</h1>
+<div class="container text-center">
+  <div class="row row-cols-4">
 {{#each beers}}
-{{this.name}}
+{{> beercards this}}
 {{/each}}
+  </div>
+</div>
