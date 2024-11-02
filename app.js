@@ -17,13 +17,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 hbs.registerPartials(path.join(__dirname, '/views/partials'));
 
-// Add the route handlers here:
+
 
 app.get('/', (req, res) => {
   res.render('index');
 });
-app.get('/beers', (req, res) => {
-  res.render('beers');
+app.get('/beers',
+  (req, res) => {
+  fetch("https://ih-beers-api2.herokuapp.com/beers")
+  .then(response => response.json())
+  .then(beersFromApi => {
+    console.log(beersFromApi)
+    res.render('beers', {beers: beersFromApi})})
+  .catch(error => console.log(error));
 });
 app.get('/random-beer', (req, res) => {
   res.render('random-beer');
