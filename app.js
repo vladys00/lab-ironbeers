@@ -32,7 +32,15 @@ app.get('/beers',
   .catch(error => console.log(error));
 });
 app.get('/random-beer', (req, res) => {
-  res.render('random-beer');
+  fetch("https://ih-beers-api2.herokuapp.com/beers/random")
+  .then(response => response.json())
+  .then(responseFromAPI => {
+    console.log(responseFromAPI)
+    res.render('random-beer', {beers: responseFromAPI})
+    
+  })
+  .catch(error => console.log(error));
+
 });
 
 app.listen(3000, () => console.log('🏃‍ on port 3000'));
